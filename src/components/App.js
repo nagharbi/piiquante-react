@@ -1,15 +1,24 @@
 import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./Layout";
 import Login from "../pages/Login";
-import Header from "./Header";
+import { AuthProvider } from "../contexts/AuthContext";
+import LandingPage from "../pages/LandingPage";
+import Register from "../pages/Register";
 
 function App() {
   return (
-    <>
-      <Header />
-      <div className="container">
-        <Login />
-      </div>
-    </>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<LandingPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

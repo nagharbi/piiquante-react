@@ -1,18 +1,24 @@
 import React from "react";
-import flame from "../images/flame.png"
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import flame from "../images/flame.png";
 
 export default function Header() {
+  const auth = useAuth();
+
   return (
     <nav>
       <div className="left-nav">
-        <ul>
-          <li>
-            <a href="#">ALL SAUCES</a>
-          </li>
-          <li>
-            <a href="#">ADD SAUCE</a>
-          </li>
-        </ul>
+        {auth.userId ? (
+          <ul>
+            <li>
+              <a href="#">ALL SAUCES</a>
+            </li>
+            <li>
+              <a href="#">ADD SAUCE</a>
+            </li>
+          </ul>
+        ) : null}
       </div>
       <div className="logo">
         <div className="logo-image">
@@ -25,15 +31,20 @@ export default function Header() {
       </div>
       <div className="right-nav">
         <ul>
-          <li>
-            <a href="#">SIGN UP</a>
-          </li>
-          <li>
-            <a href="#">LOGIN</a>
-          </li>
-          <li>
-            <a href="#">LOGOUT</a>
-          </li>
+          {auth.userId ? (
+            <li>
+              <a href="#">LOGOUT</a>
+            </li>
+          ) : (
+            <>
+              <li>
+                <NavLink to="/register">SIGN UP</NavLink>
+              </li>
+              <li>
+                <NavLink to="/login">LOGIN</NavLink>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </nav>
