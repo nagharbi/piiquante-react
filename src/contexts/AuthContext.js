@@ -4,13 +4,31 @@ import { getLocalStorage } from "../services/StroageService";
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(() => getLocalStorage("auth"));
+  console.log(JSON.stringify(getLocalStorage("auth")));
+  const [auth, setAuth] = useState(getLocalStorage("auth"));
+
+  // Login updates the user data with a name parameter
+  const login = ({ userId, token}) => {
+    setAuth(() => ({
+      userId,
+      token,
+    }));
+  };
+
+  // Logout updates the user data to default
+  const logout = () => {
+    setAuth(() => ({
+      userId: '',
+      token: '',
+    }));
+  };
 
   return (
     <AuthContext.Provider
       value={{
-        userId: auth?.userId || null,
-        token: auth?.token || null,
+        auth,
+        login,
+        logout
       }}
     >
       {children}
@@ -18,22 +36,3 @@ export const AuthProvider = ({ children }) => {
   );
 };
 export const useAuth = () => useContext(AuthContext);
-
-// export function AuthProvider({ children }) {
-//   const [auth, setAuth] = useState(() => getLocalStorage("auth"));
-
-//   useEffect(() => {
-//     setLocalStorage("auth", auth);
-//   }, [auth]);
-
-//   return (
-//     <AuthContext.Provider
-//       value={{
-//         userId: auth?.userId || null,
-//         token: auth?.token || null,
-//       }}
-//     >
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// }

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setLocalStorage } from "../services/StroageService";
+import { AuthContext } from "../contexts/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ export default function Login() {
     email: "",
     password: "",
   });
-
+  const { login } = useContext(AuthContext);
   const [disabled, setDisabled] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -31,6 +32,7 @@ export default function Login() {
       );
       setLocalStorage("auth", res.data);
       setErrorMsg("");
+      login(res.data)
       navigate("/");
     } catch (e) {
       setErrorMsg(e.message);

@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { AuthContext } from "../contexts/AuthContext";
 import flame from "../images/flame.png";
 
 export default function Header() {
-  const auth = useAuth();
+  const { auth } = useContext(AuthContext);
 
   return (
     <nav>
       <div className="left-nav">
-        {auth.userId ? (
+        {auth?.userId ? (
           <ul>
             <li>
               <a href="#">ALL SAUCES</a>
@@ -31,7 +31,7 @@ export default function Header() {
       </div>
       <div className="right-nav">
         <ul>
-          {auth.userId ? (
+          {auth?.userId ? (
             <li>
               <a href="#">LOGOUT</a>
             </li>
