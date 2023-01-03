@@ -8,6 +8,7 @@ import Header from "./Header";
 import Connexion from "./Connexion";
 import Sauce from "../pages/Sauce";
 import Logout from "../pages/Logout";
+import Redirection from "./Redirection";
 
 function App() {
   return (
@@ -38,9 +39,23 @@ function App() {
             </Connexion>
           }
         />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/logout" element={<Logout/>}/>
+        <Route
+          path="/register"
+          element={
+            <Redirection>
+              <Register />
+            </Redirection>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <Redirection>
+              <Login />
+            </Redirection>
+          }
+        />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
     </>
   );
