@@ -7,6 +7,7 @@ import Sauces from "../pages/Sauces";
 import Header from "./Header";
 import Connexion from "./Connexion";
 import Sauce from "../pages/Sauce";
+import Logout from "../pages/Logout";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout/>}/>
       </Routes>
     </>
   );

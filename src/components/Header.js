@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import flame from "../images/flame.png";
 import { NavLink } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
 
 export default function Header() {
+  const { userId } = useContext(UserContext);
+  console.log(userId);
   return (
     <nav>
       <div className="left-nav">
-        <ul>
-          <li>
-            <NavLink to="/sauces">ALL SAUCES</NavLink>
-          </li>
-          <li>
-            <NavLink to="/sauces/create">ADD SAUCE</NavLink>
-          </li>
-        </ul>
+        {userId ? (
+          <ul>
+            <li>
+              <NavLink to="/sauces">ALL SAUCES</NavLink>
+            </li>
+            <li>
+              <NavLink to="/sauces/create">ADD SAUCE</NavLink>
+            </li>
+          </ul>
+        ) : null}
       </div>
       <div className="logo">
         <div className="logo-image">
@@ -25,17 +30,22 @@ export default function Header() {
         </div>
       </div>
       <div className="right-nav">
-        <ul>
-          <li>
-            <NavLink to="/register">SIGN UP</NavLink>
-          </li>
-          <li>
-            <NavLink to="/login">LOGIN</NavLink>
-          </li>
-          <li>
-            <a href="#">LOGOUT</a>
-          </li>
-        </ul>
+        {userId ? (
+          <ul>
+            <li>
+              <NavLink to="/logout">LOGOUT</NavLink>
+            </li>
+          </ul>
+        ) : (
+          <ul>
+            <li>
+              <NavLink to="/register">SIGN UP</NavLink>
+            </li>
+            <li>
+              <NavLink to="/login">LOGIN</NavLink>
+            </li>
+          </ul>
+        )}
       </div>
     </nav>
   );

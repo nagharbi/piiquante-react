@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
 import { login } from "../services/auth";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+  //consommer le user context
+  const { userId, setUserId } = useContext(UserContext);
 
   const handleEmail = (event) => {
     setEmail(event.target.value);
@@ -16,13 +21,15 @@ export default function Login() {
     event.preventDefault();
     try {
       const resultat = await login(email, password);
-      console.log(resultat);
-      localStorage.setItem("token", resultat.token);
-      localStorage.setItem("userId", resultat.userId);
-
+      
       setErrorMessage("");
       if (resultat.message) {
         setErrorMessage(resultat.message);
+      } else {
+        localStorage.setItem("token", resultat.token);
+        localStorage.setItem("userId", resultat.userId);
+        setUserId(resultat.userId); //sauvgarder le userId 
+        navigate("/sauces");
       }
     } catch (error) {
       setErrorMessage(error.message);
