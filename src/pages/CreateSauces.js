@@ -1,5 +1,6 @@
 import React from "react";
+import FormSauce from "../components/FormSauce";
 
 export default function CreateSauces() {
-  return <div className="container">CreateSauces</div>;
+  return <FormSauce />;
 }

@@ -9,6 +9,7 @@ import Connexion from "./Connexion";
 import Sauce from "../pages/Sauce";
 import Logout from "../pages/Logout";
 import Redirection from "./Redirection";
+import ModifySauce from "../pages/ModifySauce";
 
 function App() {
   return (
@@ -36,6 +37,14 @@ function App() {
           element={
             <Connexion>
               <CreateSauces />
+            </Connexion>
+          }
+        />
+        <Route
+          path="/sauces/modify/:id"
+          element={
+            <Connexion>
+              <ModifySauce />
             </Connexion>
           }
         />
