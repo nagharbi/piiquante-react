@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getOneSauce, likeDislike } from "../services/sauces";
+import { deleteSauce, getOneSauce, likeDislike } from "../services/sauces";
 import { UserContext } from "../contexts/UserContext";
 
 export default function Sauce() {
@@ -57,8 +57,9 @@ export default function Sauce() {
     navigate(`/sauces/modify/${id}`);
   };
 
-  const handleDelete = () => {
-    console.log("delete");
+  const handleDelete = async () => {
+    await deleteSauce(id);
+    navigate("/sauces");
   };
 
   useEffect(() => {
