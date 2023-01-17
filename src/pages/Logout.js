@@ -5,8 +5,7 @@ import { UserContext } from "../contexts/UserContext";
 export default function Logout() {
   const { userId, setUserId } = useContext(UserContext);
   useEffect(() => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userId");
+    localStorage.clear();
     setUserId(null);
   }, []);
   return <Navigate to="/login" />;

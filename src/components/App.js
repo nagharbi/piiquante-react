@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import Login from "../pages/Login";
 import CreateSauces from "../pages/CreateSauces";
@@ -10,8 +10,16 @@ import Sauce from "../pages/Sauce";
 import Logout from "../pages/Logout";
 import Redirection from "./Redirection";
 import ModifySauce from "../pages/ModifySauce";
+import AuthVerify from "../common/AuthVerify";
+import { UserContext } from "../contexts/UserContext";
 
 function App() {
+  const { userId, setUserId } = useContext(UserContext);
+   const logout = useCallback(() => {
+     localStorage.clear();
+     setUserId(null);
+   }, []);
+
   return (
     <>
       <Header />
@@ -66,6 +74,7 @@ function App() {
         />
         <Route path="/logout" element={<Logout />} />
       </Routes>
+      <AuthVerify logout={logout} />
     </>
   );
 }
