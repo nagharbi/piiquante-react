@@ -6,9 +6,9 @@ export default function Sauces() {
   const [sauces, setSauces] = useState([]);
   useEffect(() => {
     async function load() {
-      const data = await getAllSauces();
-      setSauces(data);
-      console.log(data);
+        const data = await getAllSauces();
+        setSauces(data);
+        console.log(data);
     }
     load();
   }, []);
@@ -20,7 +20,11 @@ export default function Sauces() {
           <p className="list-title">THE SAUCES</p>
           <div className="sauce-list">
             {sauces.map((sauce, index) => (
-              <NavLink to={"/sauces/"+ sauce._id} key={index} className="sauce-list-item">
+              <NavLink
+                to={"/sauces/" + sauce._id}
+                key={index}
+                className="sauce-list-item"
+              >
                 <img alt={sauce.name} src={sauce.imageUrl} />
                 <h4>{sauce.name}</h4>
                 <p>Heat: {sauce.heat}/10</p>
